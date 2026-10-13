@@ -1,0 +1,30 @@
+type: vmcp
+entryKey: obot-github-enterprise-configuration-examples
+displayName: GitHub Enterprise Configuration Examples
+description: Access GitHub Enterprise repositories and workflows through secret-bound and preconfigured token components. See the [official GitHub Enterprise MCP server documentation](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/provide-context/use-mcp-in-your-ide/enterprise-configuration) for setup.
+components:
+  - id: github-enterprise-secret-bound
+    name: GitHub Enterprise (Secret Binding)
+    mcpServerCatalogEntryKey: obot-github-enterprise
+    toolPrefix: secret_github_
+    configuration:
+      - key: GITHUB_PERSONAL_ACCESS_TOKEN
+        policy: fixed
+        secretBinding:
+          name: test-secret-1
+          key: key1
+  - id: github-enterprise-preconfigured
+    name: GitHub Enterprise (Preconfigured)
+    mcpServerCatalogEntryKey: obot-github-enterprise-static-token
+    toolPrefix: preconfigured_github_
+    configuration:
+      - key: GITHUB_PERSONAL_ACCESS_TOKEN
+        policy: fixed
+        value: example-vmcp-github-personal-access-token
+profiles:
+  - name: everyone
+    subjects:
+      - type: selector
+        id: '*'
+    vmcpPermissions:
+      allowAllComponents: true
