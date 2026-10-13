@@ -5,18 +5,26 @@ description: Access GitHub Enterprise repositories and workflows through secret-
 components:
   - id: github-enterprise-secret-bound
     name: GitHub Enterprise (Secret Binding)
-    mcpServerCatalogEntryKey: obot-github-enterprise
+    mcpServerCatalogEntryKey: obot-github-enterprise-secret-binding
     toolPrefix: secret_github_
+  - id: github-enterprise-preconfigured
+    name: GitHub Enterprise (Preconfigured)
+    mcpServerCatalogEntryKey: obot-github-enterprise-static-token
+    toolPrefix: preconfigured_github_
+  - id: github-enterprise-secret-in-component-config
+    name: GitHub Enterprise (Secret Component)
+    mcpServerCatalogEntryKey: obot-github-enterprise
+    toolPrefix: secret_component_github_
     configuration:
       - key: GITHUB_PERSONAL_ACCESS_TOKEN
         policy: fixed
         secretBinding:
           name: test-secret-1
           key: key1
-  - id: github-enterprise-preconfigured
-    name: GitHub Enterprise (Preconfigured)
-    mcpServerCatalogEntryKey: obot-github-enterprise-static-token
-    toolPrefix: preconfigured_github_
+  - id: github-enterprise-static-in-component-config
+    name: GitHub Enterprise (Static Component)
+    mcpServerCatalogEntryKey: obot-github-enterprise
+    toolPrefix: static_component_github_
     configuration:
       - key: GITHUB_PERSONAL_ACCESS_TOKEN
         policy: fixed
@@ -25,6 +33,6 @@ profiles:
   - name: everyone
     subjects:
       - type: selector
-        id: '*'
+        id: "*"
     vmcpPermissions:
       allowAllComponents: true
